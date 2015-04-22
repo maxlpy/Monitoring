@@ -59,7 +59,8 @@ function measureLatenancy(server)
 {
 	var options = 
 	{
-		url: 'http://localhost' + ":" + server.address().port,
+	//	url: 'http://localhost' + ":" + server.address().port,
+		url: 'http://152.46.17.81' + ":" + '9090',
 	};
 	request(options, function (error, res, body) 
 	{

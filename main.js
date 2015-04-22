@@ -13,7 +13,9 @@ var app = http.createServer(function (req, res) {
 function memoryLoad()
 {
 	// console.log( os.totalmem(), os.freemem() );
-	return 0;
+	var remain = os.totalmem() - os.freemem();
+        var percent = remain/os.totalmem();
+        return percent*100;
 }
 
 // Create function to get CPU information
@@ -45,14 +47,15 @@ var startMeasure = cpuTicksAcrossCores();
 
 function cpuAverage()
 {
-	var endMeasure = cpuTicksAcrossCores(); 
- 
-	//Calculate the difference in idle and total time between the measures
-	var idleDifference = endMeasure.idle - startMeasure.idle;
-	var totalDifference = endMeasure.total - startMeasure.total;
- 
-	//Calculate the average percentage CPU usage
-	return 0;
+	var endMeasure = cpuTicksAcrossCores();
+
+        //Calculate the difference in idle and total time between the measures
+        var idleDifference = endMeasure.idle - startMeasure.idle;
+        var totalDifference = endMeasure.total - startMeasure.total;
+
+        //Calculate the average percentage CPU usage
+        var busyDiff = totalDifference - idleDifference;
+        return busyDiff / totalDifference * 100;
 }
 
 function measureLatenancy(server)
